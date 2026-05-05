@@ -1,0 +1,32 @@
+from dataclasses import dataclass
+
+
+@dataclass(eq=False)
+class Object:
+    classification: str
+    continent: str
+    object_id: int
+    country: str
+    curator_approved: str
+    dated: str
+    department: str
+    medium: str
+    nationality: str
+    object_name: str
+    restricted: str
+    rights_type: str
+    role: str
+    room: str
+    style: str
+    title: str
+
+    def __eq__(self, other):
+        if not isinstance(other, Object):
+            return False
+        return self.object_id == other.object_id
+
+    def __hash__(self):
+        return hash(self.object_id)
+
+    def __str__(self):
+        return str(self.object_id)
