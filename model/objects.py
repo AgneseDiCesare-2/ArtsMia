@@ -29,4 +29,4 @@ class Object:
         return hash(self.object_id)
 
     def __str__(self):
-        return str(self.object_id)
+        return f"{self.title}, ({self.dated}) -- {self.classification}"

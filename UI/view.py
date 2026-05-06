@@ -31,7 +31,6 @@ class View(ft.UserControl):
                                                      color="white",
                                                      width=200)
         self._txtIdOggetto = ft.TextField(label="Id Oggetto", color="orange", border_color="orange")
-        self._controller.get_idOggetto()
         self._btnCompConnessa = ft.ElevatedButton(text="Cerca Connessa", on_click=self._controller.handleCompConnessa,
                                                   bgcolor="orange",
                                                   color="white",

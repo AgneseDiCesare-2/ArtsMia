@@ -19,23 +19,24 @@ class Controller:
     def handleCompConnessa(self,e):
         #voglio cercare tutti i nodi che sono raggiungibili dal nodo selezionato (BFV O DFV)
         #in questo caso non mi interessa un cammino minimo --> uso DBV (più veloce)
-        output=self._model.componente_connessa(self._idOggetto) #tupla (lista, len(Lista))
+        output=self._model.componente_connessa(self.get_idOggetto()) #tupla (lista, len(Lista))
         if output==0:
-            self._view.txt_result.controls.append(ft.Text("Inserire un id_oggetto valido!"))
+            self._view.txt_result.controls.append(ft.Text("Inserire un id_oggetto valido!", color="orange"))
             self._view._page.update()
             return
         #altrimenti output è la lista dei nodi (object) connessi:
-        self._view.txt_result.controls.append(ft.Text(f"I nodi connessi sono {output[1]}"))
-        for nodo in output[0]:
-            self._view.txt_result.controls.append(ft.Text(nodo))
-            self._view._page.update()
+        self._view.txt_result.controls.append(ft.Text(f"I nodi connessi a {self.get_idOggetto()} sono {output[1]}"))
+        self._view._page.update()
+        #for nodo in output[0]:
+        #    self._view.txt_result.controls.append(ft.Text(nodo))
+        #    self._view._page.update()
 
 
     def get_idOggetto(self):
         id=self._view._txtIdOggetto.value
         if id == "" or id is None:
-            self._view.txt_result.controls.append(ft.Text("Inserisci un id_oggetto per continuare! ", color="red"))
+            self._view.txt_result.controls.append(ft.Text("Inserisci un id_oggetto per continuare! ", color="orange"))
             self._view._page.update()
             return
         self._idOggetto=int(id)
-        return
+        return self._idOggetto

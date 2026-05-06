@@ -14,9 +14,15 @@ class Model:
     def buildGraphPesato(self):
         self._grafo.clear()
         self._grafo.add_nodes_from(self._nodi)
-        self.addEdgesPesati()
+        self.addEdgesPesati2()
 
-    def addEdgesPesati(self):
+    def addEdgesPesati2(self):
+        alledges=DAO.getEdgePeso(self.idMap)
+        for e in alledges:
+            self._grafo.add_edge(e.u, e.v, weight=e.peso)
+
+    #funziona lo stesso
+    """def addEdgesPesati(self):
         self._grafo.clear_edges()
         alledges = DAO.get_numOgg_esibizioni()
 
@@ -33,7 +39,7 @@ class Model:
                             self._grafo[u][v]["weight"] += 1
                         #altrimenti aggiungo l'arco
                         else:
-                            self._grafo.add_edge(u, v, weight=1)
+                            self._grafo.add_edge(u, v, weight=1)"""
 
     def get_numnodi(self):
         return len(self._grafo.nodes)
