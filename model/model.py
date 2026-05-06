@@ -11,7 +11,7 @@ class Model:
             self.idMap[nodo.object_id]=nodo
         self._grafo=nx.Graph() #grafo semplice, pesato e non orientato
 
-    def BuildGraphPesato(self):
+    def buildGraphPesato(self):
         self._grafo.clear()
         self._grafo.add_nodes_from(self._nodi)
         self.addEdgesPesati()
@@ -23,7 +23,7 @@ class Model:
         for esibizione in alledges:
             if esibizione[1]>1: #se c'è più di un oggetto, li elenco
                 id_oggetti_presenti=DAO.getOggetti_esibizione(esibizione[0]) #lista di id_oggetto
-                #aggiungo un arco tra tutti gli id!
+                #aggiungo un arco tra tutti gli id! --> doppio ciclo for, non molto efficiente
                 for i in range(len(id_oggetti_presenti)):
                     u=self.idMap[id_oggetti_presenti[i]] #PRIMO OGGETTO
                     for j in range(i+1, len(id_oggetti_presenti)):
@@ -40,3 +40,18 @@ class Model:
 
     def get_numarchi(self):
         return len(self._grafo.edges)
+
+    def componente_connessa(self, id_oggetto):
+        if id_oggetto in self.idMap.keys():
+            oggetto=self.idMap[id_oggetto]
+            lista_nodi_connessi=self.getDFSNodesFromTree(oggetto) #tupla
+            return lista_nodi_connessi
+        else:
+            return 0 #valore di default da gestire
+
+    def getDFSNodesFromTree(self, source): #passo il nodo come parametro
+        tree=nx.dfs_tree(self._grafo, source) #ritorna un albero orientato
+        nodi=list(tree.nodes()) #prendo i nodi e li metto in una lista
+        return nodi, len(nodi)
+
+

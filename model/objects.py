@@ -3,9 +3,9 @@ from dataclasses import dataclass
 
 @dataclass(eq=False)
 class Object:
+    object_id: int
     classification: str
     continent: str
-    object_id: int
     country: str
     curator_approved: str
     dated: str

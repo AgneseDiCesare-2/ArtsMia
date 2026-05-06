@@ -5,6 +5,7 @@ class View(ft.UserControl):
     def __init__(self, page: ft.Page):
         super().__init__()
         # page stuff
+        self._txtIdOggetto = None
         self._page = page
         self._page.title = "TdP Exercise on MIA Art database"
         self._page.horizontal_alignment = 'CENTER'
@@ -30,6 +31,7 @@ class View(ft.UserControl):
                                                      color="white",
                                                      width=200)
         self._txtIdOggetto = ft.TextField(label="Id Oggetto", color="orange", border_color="orange")
+        self._controller.get_idOggetto()
         self._btnCompConnessa = ft.ElevatedButton(text="Cerca Connessa", on_click=self._controller.handleCompConnessa,
                                                   bgcolor="orange",
                                                   color="white",
